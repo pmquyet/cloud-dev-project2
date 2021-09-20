@@ -22,7 +22,7 @@ export async function filterImageFromURL(inputURL: string): Promise<string> {
           });
       })
       .catch((err) => {
-        console.error(err);
+        console.error("error found", err);
         reject("Could not read image.");
       });
   });
