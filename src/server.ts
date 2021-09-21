@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import bodyParser from "body-parser";
 import { filterImageFromURL, deleteLocalFiles } from "./util/util";
 
@@ -29,14 +29,13 @@ import { filterImageFromURL, deleteLocalFiles } from "./util/util";
   /**************************************************************************** */
 
   //! END @TODO1
-  app.get("/filteredimage/", async (req, res) => {
+  app.get("/filteredimage/", async (req: Request, res: Response) => {
     try {
-      let { image_url } = req.query;
-      console.log("IMAGE URL", image_url);
+      let image_url: string = req.query;
       if (!image_url) {
         return res.status(400).send("Need input propser URL!");
       }
-      console.log(image_url);
+
       const path = await filterImageFromURL(image_url);
       res.sendFile(path);
       res.on("finish", () => deleteLocalFiles([path]));
@@ -47,7 +46,7 @@ import { filterImageFromURL, deleteLocalFiles } from "./util/util";
 
   // Root Endpoint
   // Displays a simple message to the user
-  app.get("/", async (req, res) => {
+  app.get("/", async (req: Request, res: Response) => {
     res.send("this is for submission of project 2");
   });
 
